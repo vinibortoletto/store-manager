@@ -10,8 +10,14 @@ describe('Unit tests for productService', function() {
 
   it('should get all products', async function() {
     sinon.stub(productModel, 'getAll').resolves(productMock.getAllWithSuccess)
-
     const result = await productService.getAll()
     expect(result).to.deep.equal(productMock.getAllWithSuccess)
   });
+
+  it('should find product by id with success', async function () {
+    const output = productMock.getAllWithSuccess[0]
+    sinon.stub(productModel, 'findById').resolves(output)
+    const result = await productService.findById(1)
+    expect(result).to.deep.equal(output)
+  })
 });
