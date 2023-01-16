@@ -20,4 +20,10 @@ describe('Unit tests for productService', function() {
     const result = await productService.findById(1)
     expect(result).to.deep.equal(output)
   })
+
+  it('should fail to find product by id', async function () {
+    sinon.stub(productModel, 'findById').resolves([[]])
+    const result = await productService.findById(0)
+    expect(result).to.equal('Product not found')
+  })
 });
