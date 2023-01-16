@@ -11,22 +11,37 @@ const { productService } = require("../../../src/services");
 const httpStatus = require("../../../src/utils/httpStatus");
 
 describe("Unit tests for productController", function () {
-  afterEach(function () { sinon.restore() })
-  
+  afterEach(function () {
+    sinon.restore();
+  });
+
   it("should get all products", async function () {
     const res = {};
     const req = {};
-    
-    const output = productMock.getAllWithSuccess
+
+    const output = productMock.getAllWithSuccess;
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
-    
-    sinon
-      .stub(productService, "getAll")
-      .resolves(output);
+
+    sinon.stub(productService, "getAll").resolves(output);
 
     await productController.getAll(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.OK);
+    expect(res.json).to.have.been.calledWith(output);
+  });
+
+  it("should find product by id with success", async function () {
+    const res = {};
+    const req = { params: { id: 1 } };
+    const output = productMock.getAllWithSuccess[0];
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productService, "findById").resolves(output);
+
+    await productController.findById(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
     expect(res.json).to.have.been.calledWith(output);
