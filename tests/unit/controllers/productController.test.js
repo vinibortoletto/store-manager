@@ -90,6 +90,6 @@ describe("Unit tests for productController", function () {
     await productController.insert(req, res)
 
     expect(res.status).to.have.been.calledWith(httpStatus.CREATED);
-    expect(res.json).to.have.been.calledWith({ message: output.message });
+    expect(res.json).to.have.been.calledWith(output.message);
   });
 });
