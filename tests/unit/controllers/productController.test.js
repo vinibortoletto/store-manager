@@ -92,4 +92,25 @@ describe("Unit tests for productController", function () {
     expect(res.status).to.have.been.calledWith(httpStatus.CREATED);
     expect(res.json).to.have.been.calledWith(output.message);
   });
+
+  it('should fail to insert new product without a name', async function() {
+    const res = {}
+    const req = {
+      body: {}
+    }
+
+    const output = {
+      type: 'VALUE_REQUIRED',
+      message: '"name" is required'
+    }
+
+    res.status = sinon.stub().returns(res)
+    res.json = sinon.stub().returns()
+    sinon.stub(productService, 'insert').resolves(output)
+
+    await productController.insert(req, res)
+
+    expect(res.status).to.have.been.calledWith(httpStatus.BAD_REQUEST);
+    expect(res.json).to.have.been.calledWith(output.message);
+  });
 });
