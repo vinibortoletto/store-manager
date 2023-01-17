@@ -44,4 +44,14 @@ describe("Unit tests for productService", function () {
     expect(result.type).to.equal(output.type);
     expect(result.message).to.equal(output.message);
   });
+
+  it('should insert new product with success', async function() {
+    sinon.stub(productModel, 'insert').resolves(productMock.insertWithSuccess.id)
+    sinon.stub(productModel, 'findById').resolves(productMock.insertWithSuccess)
+
+    const result = await productService.insert(productMock.insertWithSuccess)
+
+    expect(result.type).to.equal(null);
+    expect(result.message).to.equal(productMock.insertWithSuccess);
+  });
 });
