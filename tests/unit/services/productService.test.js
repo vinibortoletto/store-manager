@@ -45,13 +45,41 @@ describe("Unit tests for productService", function () {
     expect(result.message).to.equal(output.message);
   });
 
-  it('should insert new product with success', async function() {
-    sinon.stub(productModel, 'insert').resolves(productMock.insertWithSuccess.id)
-    sinon.stub(productModel, 'findById').resolves(productMock.insertWithSuccess)
+  it("should insert new product with success", async function () {
+    sinon
+      .stub(productModel, "insert")
+      .resolves(productMock.insertWithSuccess.id);
+    sinon
+      .stub(productModel, "findById")
+      .resolves(productMock.insertWithSuccess);
 
-    const result = await productService.insert(productMock.insertWithSuccess)
+    const result = await productService.insert(productMock.insertWithSuccess);
 
     expect(result.type).to.equal(null);
     expect(result.message).to.equal(productMock.insertWithSuccess);
+  });
+
+  it("should fail to insert new product without a name", async function () {
+    const output = {
+      type: "INVALID_VALUE",
+      message: '"name" is required',
+    }
+
+    const result = await productService.insert({});
+
+    expect(result.type).to.equal(output.type);
+    expect(result.message).to.equal(output.message);
+  });
+
+  it("should fail to insert new product with invalid name", async function () {
+    const output = {
+      type: "INVALID_VALUE",
+      message: '"name" length must be at least 5 characters long'
+    }
+
+    const result = await productService.insert({name: 'aaaa'});
+
+    expect(result.type).to.equal(output.type);
+    expect(result.message).to.equal(output.message);
   });
 });
