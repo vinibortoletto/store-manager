@@ -53,7 +53,9 @@ describe("Unit tests for productService", function () {
       .stub(productModel, "findById")
       .resolves(productMock.insertWithSuccess);
 
-    const result = await productService.insert(productMock.insertWithSuccess);
+    const result = await productService.insert({
+      name: productMock.insertWithSuccess.name
+    });
 
     expect(result.type).to.equal(null);
     expect(result.message).to.equal(productMock.insertWithSuccess);
