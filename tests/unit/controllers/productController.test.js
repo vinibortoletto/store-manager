@@ -38,8 +38,8 @@ describe("Unit tests for productController", function () {
 
     const output = {
       type: null,
-      message: productMock.getAllWithSuccess[0]
-    }
+      message: productMock.getAllWithSuccess[0],
+    };
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
@@ -56,9 +56,9 @@ describe("Unit tests for productController", function () {
     const req = { params: { id: 0 } };
 
     const output = {
-      type: 'PRODUCT_NOT_FOUND',
-      message: 'Product not found'
-    }
+      type: "PRODUCT_NOT_FOUND",
+      message: "Product not found",
+    };
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
@@ -67,6 +67,29 @@ describe("Unit tests for productController", function () {
     await productController.findById(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.NOT_FOUND);
-    expect(res.json).to.have.been.calledWith({message: output.message});
+    expect(res.json).to.have.been.calledWith({ message: output.message });
+  });
+
+  it("should insert new product with success", async function () {
+    const res = {};
+    const req = {
+      body: {
+        name: productMock.insertWithSuccess
+      }
+    };
+
+    const output = {
+      type: null,
+      message: productMock.insertWithSuccess
+    }
+
+    res.status = sinon.stub().returns(res)
+    res.json = sinon.stub().returns()
+    sinon.stub(productService, 'insert').resolves(output)
+
+    await productController.insert(req, res)
+
+    expect(res.status).to.have.been.calledWith(httpStatus.CREATED);
+    expect(res.json).to.have.been.calledWith({ message: output.message });
   });
 });
