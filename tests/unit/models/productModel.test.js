@@ -26,7 +26,7 @@ describe("Unit tests for productModel", function () {
   it('should insert new product with success', async function () {
     const output = productMock.insertWithSuccess
     sinon.stub(connection, 'execute').resolves([{insertId: productMock.insertWithSuccess.id}])
-    const result = await productModel.insert(productMock.insertWithSuccess.name)
+    const result = await productModel.insert(productMock.insertWithSuccess)
     expect(result).to.equal(productMock.insertWithSuccess.id)
   })
 });
