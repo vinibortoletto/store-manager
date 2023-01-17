@@ -1,6 +1,6 @@
 const { productService } = require('../services');
 const { errorTypes } = require('../utils/errorTypes');
-const { OK } = require('../utils/httpStatus');
+const { OK, CREATED } = require('../utils/httpStatus');
 
 const getAll = async (req, res) => {
   const productList = await productService.getAll();
@@ -15,4 +15,11 @@ const findById = async (req, res) => {
   res.status(OK).json(message);
 };
 
-module.exports = { getAll, findById };
+const insert = async (req, res) => {
+  const newProduct = req.body;
+  const { type, message } = await productService.insert(newProduct);
+  
+  res.status(CREATED).json({ message });
+};
+
+module.exports = { getAll, findById, insert };
