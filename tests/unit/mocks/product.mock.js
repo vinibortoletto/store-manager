@@ -4,4 +4,9 @@ const getAllWithSuccess = [
   { id: 3, name: "Escudo do Capitão América" },
 ];
 
-module.exports = {getAllWithSuccess}
+const insertWithSuccess = {
+  id: 19,
+  name: "Novo Produto",
+};
+
+module.exports = { getAllWithSuccess, insertWithSuccess };

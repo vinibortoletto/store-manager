@@ -22,4 +22,11 @@ describe("Unit tests for productModel", function () {
     const result = await productModel.findById(1);
     expect(result).to.deep.equal(output);
   });
+
+  it('should insert new product with success', async function () {
+    const output = productMock.insertWithSuccess
+    sinon.stub(connection, 'execute').resolves([{insertId: productMock.insertWithSuccess.id}])
+    const result = await productModel.insert(productMock.insertWithSuccess.name)
+    expect(result).to.equal(productMock.insertWithSuccess.id)
+  })
 });
