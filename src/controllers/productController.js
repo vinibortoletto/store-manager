@@ -12,7 +12,7 @@ const findById = async (req, res) => {
   const { type, message } = await productService.findById(id);
 
   if (type) return res.status(errorTypes[type]).json({ message });
-  res.status(OK).json({ message });
+  res.status(OK).json(message);
 };
 
 module.exports = { getAll, findById };
