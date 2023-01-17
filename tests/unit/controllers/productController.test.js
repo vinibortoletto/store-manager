@@ -111,6 +111,27 @@ describe("Unit tests for productController", function () {
     await productController.insert(req, res)
 
     expect(res.status).to.have.been.calledWith(httpStatus.BAD_REQUEST);
-    expect(res.json).to.have.been.calledWith(output.message);
+    expect(res.json).to.have.been.calledWith({message: output.message});
+  });
+
+  it('should fail to insert new product with a invalid name', async function() {
+    const res = {}
+    const req = {
+      body: { name: 'aaaa' }
+    }
+
+    const output = {
+      type: 'INVALID_VALUE',
+      message: '"name" length must be at least 5 characters long'
+    }
+
+    res.status = sinon.stub().returns(res)
+    res.json = sinon.stub().returns()
+    sinon.stub(productService, 'insert').resolves(output)
+
+    await productController.insert(req, res)
+
+    expect(res.status).to.have.been.calledWith(httpStatus.UNPROCESSABLE_ENTITY);
+    expect(res.json).to.have.been.calledWith({message: output.message});
   });
 });
