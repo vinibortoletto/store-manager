@@ -18,7 +18,7 @@ describe("Unit tests for productModel", function () {
 
   it("should find product by id with success", async function () {
     const output = productMock.getAllWithSuccess[0];
-    sinon.stub(connection, "execute").resolves(output);
+    sinon.stub(connection, "execute").resolves([[output]]);
     const result = await productModel.findById(1);
     expect(result).to.deep.equal(output);
   });
