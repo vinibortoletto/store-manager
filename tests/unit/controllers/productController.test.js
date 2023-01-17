@@ -46,4 +46,19 @@ describe("Unit tests for productController", function () {
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
     expect(res.json).to.have.been.calledWith(output);
   });
+
+  it("should fail to find product by id", async function () {
+    const res = {};
+    const req = { params: { id: 0 } };
+    const output = 'Product not found'
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productService, "findById").resolves(output);
+
+    await productController.findById(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.NOT_FOUND);
+    expect(res.json).to.have.been.calledWith(output);
+  });
 });
