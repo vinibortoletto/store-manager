@@ -35,7 +35,11 @@ describe("Unit tests for productController", function () {
   it("should find product by id with success", async function () {
     const res = {};
     const req = { params: { id: 1 } };
-    const output = productMock.getAllWithSuccess[0];
+
+    const output = {
+      type: null,
+      message: productMock.getAllWithSuccess[0]
+    }
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
@@ -44,13 +48,17 @@ describe("Unit tests for productController", function () {
     await productController.findById(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
-    expect(res.json).to.have.been.calledWith(output);
+    expect(res.json).to.have.been.calledWith({message: output.message});
   });
 
   it("should fail to find product by id", async function () {
     const res = {};
     const req = { params: { id: 0 } };
-    const output = 'Product not found'
+
+    const output = {
+      type: 'PRODUCT_NOT_FOUND',
+      message: 'Product not found'
+    }
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
@@ -59,6 +67,6 @@ describe("Unit tests for productController", function () {
     await productController.findById(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.NOT_FOUND);
-    expect(res.json).to.have.been.calledWith(output);
+    expect(res.json).to.have.been.calledWith({message: output.message});
   });
 });
