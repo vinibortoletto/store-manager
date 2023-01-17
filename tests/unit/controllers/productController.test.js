@@ -74,7 +74,7 @@ describe("Unit tests for productController", function () {
     const res = {};
     const req = {
       body: {
-        name: productMock.insertWithSuccess
+        name: productMock.insertWithSuccess.name
       }
     };
 
