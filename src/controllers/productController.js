@@ -19,7 +19,7 @@ const insert = async (req, res) => {
   const newProduct = req.body;
   const { type, message } = await productService.insert(newProduct);
 
-  if (type) return res.status(errorTypes[type]).json(message);
+  if (type) return res.status(errorTypes[type]).json({ message });
   res.status(CREATED).json(message);
 };
 
