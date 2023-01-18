@@ -2,7 +2,7 @@ const connection = require('../../connection');
 
 const insert = async () => {
   const [{ insertId }] = await connection.execute(
-    'INSERT INTO sales (date) VALUES (NOW())',
+    'INSERT INTO sales () VALUES ()',
 );
 
   return insertId;
