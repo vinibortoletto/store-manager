@@ -11,14 +11,14 @@ describe("Unit tests for saleModel", function () {
   });
 
   it("should insert new sale with success", async function () {
-    const output = saleMock.insertResponseWithSuccess;
-
+    const output = saleMock.insertResponseWithSuccess.id;
+    
     sinon
       .stub(connection, "execute")
-      .resolves([{ insertId: saleMock.insertResponseWithSuccess.id }]);
+      .resolves([{ insertId: output }]);
     
-    const result = await saleModel.insert(saleMock.insertBodyWithSuccess);
+    const result = await saleModel.insert(saleMock.newSaleDate);
     
-    expect(result).to.deep.equal(saleMock.insertResponseWithSuccess.id);
+    expect(result).to.deep.equal(output);
   });
 });
