@@ -5,7 +5,7 @@ const { saleProductModel } = require("../../../src/models");
 const { saleProductService } = require("../../../src/services");
 const { saleMock } = require("../mocks");
 
-describe.only("Unit tests for saleProductService", function () {
+describe("Unit tests for saleProductService", function () {
   afterEach(function () {
     sinon.restore();
   });

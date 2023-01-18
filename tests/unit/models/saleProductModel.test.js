@@ -3,7 +3,7 @@ const sinon = require("sinon");
 const connection = require("../../../connection");
 
 const { saleProductModel } = require("../../../src/models");
-const saleModel = require('../../../src/models/saleModel')
+const saleModel = require("../../../src/models/saleModel");
 
 const { saleMock } = require("../mocks");
 
@@ -24,5 +24,13 @@ describe("Unit tests for saleProductModel", function () {
 
     expect(result).to.deep.equal(output);
   });
-});
 
+  it("should find sale by id with success", async function () {
+    const output = saleMock.insertResponseWithSuccess;
+
+    sinon.stub(connection, "execute").resolves(output);
+
+    const result = await saleProductModel.findById(output.id);
+    expect(result).to.deep.equal(output);
+  });
+});
