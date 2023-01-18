@@ -7,7 +7,7 @@ const saleModel = require('../../../src/models/saleModel')
 
 const { saleMock } = require("../mocks");
 
-describe("Unit tests for saleModel", function () {
+describe("Unit tests for saleProductModel", function () {
   afterEach(function () {
     sinon.restore();
   });
