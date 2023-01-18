@@ -17,7 +17,7 @@ describe("Unit tests for saleModel", function () {
       .stub(connection, "execute")
       .resolves([{ insertId: output }]);
     
-    const result = await saleModel.insert(saleMock.newSaleDate);
+    const result = await saleModel.insert();
     
     expect(result).to.deep.equal(output);
   });
