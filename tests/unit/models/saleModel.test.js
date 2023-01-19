@@ -12,13 +12,15 @@ describe("Unit tests for saleModel", function () {
 
   it("should insert new sale with success", async function () {
     const output = saleMock.insertResponseWithSuccess.id;
+
+    sinon.stub(connection, 'execute')
+      .onFirstCall()
+      .resolves([{insertId: output}])
+      .onSecondCall()
+      .resolves([{insertId: output}])
     
-    sinon
-      .stub(connection, "execute")
-      .resolves([{ insertId: output }]);
-    
-    const result = await saleModel.insert();
-    
-    expect(result).to.deep.equal(output);
+    const result = await saleModel.insert(saleMock.insertBodyWithSuccess)
+
+    expect(result).to.equal(output)
   });
 });
