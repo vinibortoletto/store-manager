@@ -1,3 +1,4 @@
+const camelize = require('camelize');
 const connection = require('../../connection');
 const { createColumnsAndPlaceholders } = require('../utils/createColumnsAndPlaceholders');
 
@@ -25,4 +26,10 @@ const insert = async (productList) => {
   return newSaleId;
 };
 
-module.exports = { insert };
+const findById = async (id) => {
+  const query = 'SELECT * FROM sales_products WHERE id = ?';
+  const result = await connection.execute(query, [id]);
+  return camelize(result);
+};
+
+module.exports = { insert, findById };
