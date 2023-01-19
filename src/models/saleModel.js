@@ -10,11 +10,16 @@ const insertSale = async () => {
   return insertId;
 };
 
-const insert = async (productList) => {
-  const newSaleId = await insertSale();
+const findById = async (id) => {
+  const query = 'SELECT * FROM sales_products WHERE id = ?';
+  const result = await connection.execute(query, [id]);
+  return camelize(result);
+};
 
+const insert = async (productList) => {
   const { columns, placeholders } = createColumnsAndPlaceholders(productList[0]);
 
+  const newSaleId = await insertSale();
   const query = `INSERT INTO sales_products (sale_id, ${columns}) VALUES (?, ${placeholders})`;
 
   const promises = productList.map(async () => (
@@ -23,13 +28,8 @@ const insert = async (productList) => {
 
   await Promise.all(promises);
 
-  return newSaleId;
-};
-
-const findById = async (id) => {
-  const query = 'SELECT * FROM sales_products WHERE id = ?';
-  const result = await connection.execute(query, [id]);
-  return camelize(result);
+  const insertedProductList = await findById(newSaleId);
+  return insertedProductList;
 };
 
 module.exports = { insert, findById };
