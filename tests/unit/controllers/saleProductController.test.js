@@ -2,8 +2,8 @@ const chai = require("chai");
 const sinon = require("sinon");
 const sinonChai = require("sinon-chai");
 
-const { saleService } = require("../../../src/services");
-const { saleController } = require("../../../src/controllers");
+const { saleProductService } = require("../../../src/services");
+const { saleProductController } = require("../../../src/controllers");
 const { saleMock } = require("../mocks");
 const httpStatus = require("../../../src/utils/httpStatus");
 
@@ -24,9 +24,12 @@ describe("Unit tests for saleController", function () {
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
 
-    sinon.stub(saleService, "insert").resolves(output);
+    sinon.stub(saleProductService, "insert").resolves({
+      type: null,
+      message: output
+    });
 
-    await saleController.insert(req, res);
+    await saleProductController.insert(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
     expect(res.json).to.have.been.calledWith(output);
