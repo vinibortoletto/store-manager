@@ -1,8 +1,8 @@
 const { saleModel } = require('../models');
 
-const insert = async (newSaleProductList) => {
-  const insertedSale = await saleModel.insert(newSaleProductList);
-  return { type: null, message: insertedSale };
+const insert = async () => {
+  const newSaleId = await saleModel.insert();
+  return { type: null, message: newSaleId };
 };
 
 module.exports = { insert };

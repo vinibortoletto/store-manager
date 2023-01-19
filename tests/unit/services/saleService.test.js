@@ -11,7 +11,7 @@ describe("Unit tests for saleService", function () {
   });
 
   it("should insert new sale with success", async function () {
-    const output = saleMock.insertResponseWithSuccess
+    const output = saleMock.insertResponseWithSuccess.id
     sinon.stub(saleModel, 'insert').resolves(output)
 
     const result = await saleService.insert(saleMock.insertBodyWithSuccess)
