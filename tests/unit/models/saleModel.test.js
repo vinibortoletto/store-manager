@@ -23,4 +23,12 @@ describe("Unit tests for saleModel", function () {
 
     expect(result).to.equal(output)
   });
+
+  it('should find sale by id with success', async function () {
+    const output = saleMock.insertResponseWithSuccess
+    sinon.stub(connection, 'execute').resolves(output)
+    const result = await saleModel.findById(output.id)
+
+    expect(result).to.deep.equal(output)
+  })
 });
