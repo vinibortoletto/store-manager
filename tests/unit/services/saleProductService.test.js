@@ -13,12 +13,12 @@ describe("Unit tests for saleProductService", function () {
   it("should insert new sale with success", async function () {
     const output = saleMock.insertResponseWithSuccess
     sinon.stub(saleProductModel, 'insert').resolves(output.id)
-    sinon.stub(saleProductModel, 'findById').resolves(output)
+    sinon.stub(saleProductModel, 'findById').resolves(saleMock.findByIdResponseWithSuccess)
 
     const result = await saleProductService.insert(saleMock.insertBodyWithSuccess)
 
     expect(result.type).to.equal(null)
-    expect(result.message).to.equal(output)
+    expect(result.message).to.deep.equal(output)
   });
 
   it('should fail to insert new sale without productId', async function () {
