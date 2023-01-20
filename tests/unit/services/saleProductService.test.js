@@ -28,6 +28,18 @@ describe("Unit tests for saleProductService", function () {
     }
 
     const result = await saleProductService.insert(saleMock.insertBodyWithoutProductId)
+  
+    expect(result.type).to.equal(output.type)
+    expect(result.message).to.equal(output.message)
+  })
+
+  it('should fail to insert new sale if a product in the list does not exists', async function () {
+    const output = {
+      type: 'PRODUCT_NOT_FOUND',
+      message: 'Product not found'
+    }
+
+    const result = await saleProductService.insert(saleMock.insertBodyWithWrongProductId)
 
     expect(result.type).to.equal(output.type)
     expect(result.message).to.equal(output.message)

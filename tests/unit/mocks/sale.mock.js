@@ -13,6 +13,8 @@ const insertBodyWithSuccess = [
 
 const insertBodyWithoutProductId = [{ quantity: 1 }];
 
+const insertBodyWithWrongProductId = [{productId:9999,quantity:1}];
+
 const insertBodyWithoutQuantity = [{productId:1}];
 
 const insertBodyWithWrongQuantity = [{productId:1,quantity: 0}];
@@ -28,5 +30,6 @@ module.exports = {
   insertBodyWithoutProductId,
   findByIdResponseWithSuccess,
   insertBodyWithoutQuantity,
-  insertBodyWithWrongQuantity
+  insertBodyWithWrongQuantity,
+  insertBodyWithWrongProductId
 };
