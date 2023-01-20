@@ -45,6 +45,18 @@ describe("Unit tests for saleProductService", function () {
     expect(result.message).to.equal(output.message)
   })
 
+  it('should fail to insert new sale with quantity less or equal 0', async function () {
+    const output = {
+      type: 'INVALID_VALUE',
+      message: '"quantity" must be greater than or equal to 1'
+    }
+
+    const result = await saleProductService.insert(saleMock.insertBodyWithWrongQuantity)
+
+    expect(result.type).to.equal(output.type)
+    expect(result.message).to.equal(output.message)
+  })
+
   it("should find sale by id with success", async function () {
     const output = saleMock.insertResponseWithSuccess
     sinon.stub(saleProductModel, 'findById').resolves(output)
