@@ -75,7 +75,7 @@ describe("Unit tests for saleProductService", function () {
       message: 'Sale not found'
     }
 
-    sinon.stub(saleProductModel, 'findById').resolves(undefined)
+    sinon.stub(saleProductModel, 'findById').resolves([])
 
     const result = await saleProductService.findById(9999)
 
