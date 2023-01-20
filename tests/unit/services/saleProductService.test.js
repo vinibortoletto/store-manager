@@ -21,6 +21,18 @@ describe("Unit tests for saleProductService", function () {
     expect(result.message).to.equal(output)
   });
 
+  it('should fail to insert new sale without productId', async function () {
+    const output = {
+      type: 'INVALID_VALUE',
+      message: '"productId" is required'
+    }
+
+    const result = await saleProductService.insert(saleMock.insertBodyWithoutProductId)
+
+    expect(result.type).to.equal(output.type)
+    expect(result.message).to.equal(output.message)
+  })
+
   it("should find sale by id with success", async function () {
     const output = saleMock.insertResponseWithSuccess
     sinon.stub(saleProductModel, 'findById').resolves(output)
