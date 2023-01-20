@@ -5,7 +5,7 @@ const connection = require("../../../connection");
 const { saleProductModel } = require("../../../src/models");
 const { saleMock } = require("../mocks");
 
-describe("Unit tests for saleModel", function () {
+describe("Unit tests for saleProductModel", function () {
   afterEach(function () {
     sinon.restore();
   });
@@ -19,7 +19,7 @@ describe("Unit tests for saleModel", function () {
 
   it('should find sale by id with success', async function () {
     const output = saleMock.insertResponseWithSuccess
-    sinon.stub(connection, 'execute').resolves(output)
+    sinon.stub(connection, 'execute').resolves([output])
     const result = await saleProductModel.findById(output.id)
     expect(result).to.deep.equal(output)
   })
