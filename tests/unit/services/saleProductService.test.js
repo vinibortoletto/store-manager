@@ -69,6 +69,20 @@ describe("Unit tests for saleProductService", function () {
     expect(result.message).to.equal(output.message)
   })
 
+  it("should fail to find sale by id if it does not exists", async function () {
+    const output = {
+      type: 'SALE_NOT_FOUND',
+      message: 'Sale not found'
+    }
+
+    sinon.stub(saleProductModel, 'findById').resolves(undefined)
+
+    const result = await saleProductService.findById(9999)
+
+    expect(result.type).to.equal(output.type)
+    expect(result.message).to.equal(output.message)
+  });
+
   it("should find sale by id with success", async function () {
     const output = saleMock.insertResponseWithSuccess
     sinon.stub(saleProductModel, 'findById').resolves(output)
