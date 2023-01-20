@@ -34,4 +34,24 @@ describe("Unit tests for saleProductController", function () {
     expect(res.status).to.have.been.calledWith(httpStatus.CREATED);
     expect(res.json).to.have.been.calledWith(output);
   })
+
+  it("should fail to insert new sale without productId", async function () {
+    const res = {};
+    const req = {};
+
+    const output = {
+      type: 'INVALID_VALUE',
+      message: '"productId" is required'
+    }
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(saleProductService, "insert").resolves(output);
+
+    await saleProductController.insert(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.UNPROCESSABLE_ENTITY);
+    expect(res.json).to.have.been.calledWith({ message: output.message });
+  })
 })
