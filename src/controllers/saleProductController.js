@@ -18,7 +18,7 @@ const findById = async (req, res) => {
   const { type, message } = await saleProductService.findById(id);
 
   if (type) return res.status(errorTypes[type]).json({ message });
-  res.status(httpStatus.OK).json(message);
+  res.status(httpStatus.OK).json({ message });
 };
 
 module.exports = { insert, getAll, findById };
