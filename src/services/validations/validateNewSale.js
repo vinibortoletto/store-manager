@@ -5,7 +5,7 @@ const validateNewSale = (newSale) => {
 
   if (error) {
     return {
-      type: 'INVALID_VALUE',
+      type: 'VALUE_REQUIRED',
       message: error.message.split('[0].').join(''),
     };
   }

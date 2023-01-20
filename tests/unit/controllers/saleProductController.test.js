@@ -40,7 +40,7 @@ describe("Unit tests for saleProductController", function () {
     const req = {};
 
     const output = {
-      type: 'INVALID_VALUE',
+      type: 'VALUE_REQUIRED',
       message: '"productId" is required'
     }
 
@@ -51,7 +51,7 @@ describe("Unit tests for saleProductController", function () {
 
     await saleProductController.insert(req, res);
 
-    expect(res.status).to.have.been.calledWith(httpStatus.UNPROCESSABLE_ENTITY);
+    expect(res.status).to.have.been.calledWith(httpStatus.BAD_REQUEST);
     expect(res.json).to.have.been.calledWith({ message: output.message });
   })
 })

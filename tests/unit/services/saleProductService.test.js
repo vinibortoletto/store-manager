@@ -23,7 +23,7 @@ describe("Unit tests for saleProductService", function () {
 
   it('should fail to insert new sale without productId', async function () {
     const output = {
-      type: 'INVALID_VALUE',
+      type: 'VALUE_REQUIRED',
       message: '"productId" is required'
     }
 
