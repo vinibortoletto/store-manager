@@ -10,14 +10,10 @@ const insert = async (productList) => {
   if (productListError) return productListError;
 
   const newSaleId = await saleProductModel.insert(productList);
-  const newSaleProductList = await saleProductModel.findById(newSaleId);
 
   const newSale = {
     id: newSaleId,
-    itemsSold: newSaleProductList.map(({ productId, quantity }) => ({
-      productId,
-      quantity,
-    })),
+    itemsSold: productList,
   };
 
   return { type: null, message: newSale };
