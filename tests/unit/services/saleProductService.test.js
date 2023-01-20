@@ -78,4 +78,14 @@ describe("Unit tests for saleProductService", function () {
     expect(result.type).to.equal(null)
     expect(result.message).to.equal(output)
   });
+
+  it('should get all sales with success', async function () {
+    const output = saleMock.getAllResponseWithSuccess
+    sinon.stub(saleProductModel, 'getAll').resolves(output)
+    
+    const result = await saleProductService.getAll()
+
+    expect(result.type).to.equal(null)
+    expect(result.message).to.equal(output)
+  })
 });
