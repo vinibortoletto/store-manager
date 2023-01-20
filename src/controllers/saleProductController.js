@@ -8,4 +8,10 @@ const insert = async (req, res) => {
   res.status(httpStatus.CREATED).json(message);
 };
 
-module.exports = { insert };
+const getAll = async (_req, res) => {
+  const { type, message } = await saleProductService.getAll();
+  if (type) return res.status(errorTypes[type]).json({ message });
+  res.status(httpStatus.OK).json(message);
+};
+
+module.exports = { insert, getAll };
