@@ -100,7 +100,7 @@ describe("Unit tests for saleProductController", function () {
   it("should find sale by id with success", async function () {
     const res = {};
     const req = {
-      params: { id: saleMock.insertResponseWithSuccess.id}
+      params: { id: 1}
     };
 
     const output = {
@@ -116,6 +116,6 @@ describe("Unit tests for saleProductController", function () {
     await saleProductController.findById(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
-    expect(res.json).to.have.been.calledWith({message: output.message});
+    expect(res.json).to.have.been.calledWith(output.message);
   });
 });
