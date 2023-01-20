@@ -54,4 +54,24 @@ describe("Unit tests for saleProductController", function () {
     expect(res.status).to.have.been.calledWith(httpStatus.BAD_REQUEST);
     expect(res.json).to.have.been.calledWith({ message: output.message });
   })
+
+  it('should get all sales with success', async function () {
+    const res = {};
+    const req = {};
+
+    const output = {
+      type: null,
+      message: saleMock.getAllResponseWithSuccess
+    }
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(saleProductService, "getAll").resolves(output);
+
+    await saleProductController.getAll(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.OK);
+    expect(res.json).to.have.been.calledWith(output.message);
+  })
 })
