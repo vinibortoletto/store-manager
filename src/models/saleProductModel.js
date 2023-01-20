@@ -11,7 +11,7 @@ const findById = async (id) => {
       sp.quantity
     FROM sales AS s
     INNER JOIN sales_products AS sp
-    ON sp.sale_id = s.id
+    ON sp.sale_id = ?
   `;
   
   const [[sale]] = await connection.execute(query, [id]);
