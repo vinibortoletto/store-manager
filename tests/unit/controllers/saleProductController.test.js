@@ -96,4 +96,26 @@ describe("Unit tests for saleProductController", function () {
     expect(res.status).to.have.been.calledWith(httpStatus.NOT_FOUND);
     expect(res.json).to.have.been.calledWith({message: output.message});
   });
+
+  it("should find sale by id with success", async function () {
+    const res = {};
+    const req = {
+      params: { id: saleMock.insertResponseWithSuccess.id}
+    };
+
+    const output = {
+      type: null,
+      message: saleMock.findByIdResponseWithSuccess,
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(saleProductService, "findById").resolves(output);
+
+    await saleProductController.findById(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.OK);
+    expect(res.json).to.have.been.calledWith({message: output.message});
+  });
 });
