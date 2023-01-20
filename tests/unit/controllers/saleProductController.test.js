@@ -32,7 +32,7 @@ describe("Unit tests for saleProductController", function () {
     await saleProductController.insert(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.CREATED);
-    expect(res.json).to.have.been.calledWith(output);
+    expect(res.json).to.have.been.calledWith({message: output});
   })
 
   it("should fail to insert new sale without productId", async function () {
