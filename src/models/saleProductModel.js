@@ -4,7 +4,16 @@ const connection = require('../../connection');
 const { createColumnsAndPlaceholders } = require('../utils/createColumnsAndPlaceholders');
 
 const findById = async (id) => {
-  const query = 'SELECT * FROM sales_products WHERE sale_id = ?';
+  const query = `
+    SELECT 
+      s.date,
+      sp.product_id,
+      sp.quantity
+    FROM sales AS s
+    INNER JOIN sales_products AS sp
+    ON sp.sale_id = s.id
+  `;
+  
   const [[sale]] = await connection.execute(query, [id]);
   return camelize(sale);
 };
