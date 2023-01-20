@@ -11,10 +11,11 @@ const findById = async (id) => {
       sp.quantity
     FROM sales AS s
     INNER JOIN sales_products AS sp
-    ON sp.sale_id = ?
+    ON s.id = sp.sale_id
+    WHERE s.id = ?;
   `;
   
-  const [[sale]] = await connection.execute(query, [id]);
+  const [sale] = await connection.execute(query, [id]);
   return camelize(sale);
 };
 
