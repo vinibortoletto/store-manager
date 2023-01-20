@@ -10,7 +10,7 @@ const httpStatus = require("../../../src/utils/httpStatus");
 const { expect } = chai;
 chai.use(sinonChai);
 
-describe("Unit tests for saleController", function () {
+describe("Unit tests for saleProductController", function () {
   afterEach(function () {
     sinon.restore();
   });
@@ -31,7 +31,7 @@ describe("Unit tests for saleController", function () {
 
     await saleProductController.insert(req, res);
 
-    expect(res.status).to.have.been.calledWith(httpStatus.OK);
+    expect(res.status).to.have.been.calledWith(httpStatus.CREATED);
     expect(res.json).to.have.been.calledWith(output);
   })
 })
