@@ -83,6 +83,20 @@ describe("Unit tests for saleProductService", function () {
     expect(result.message).to.equal(output.message)
   });
 
+  it("should fail to find sale by id if id is invalid", async function () {
+    const output = {
+      type: 'INVALID_VALUE',
+      message: '"id" must be a number greater than 1'
+    }
+
+    sinon.stub(saleProductModel, 'findById').resolves(undefined)
+
+    const result = await saleProductService.findById(0)
+
+    expect(result.type).to.equal(output.type)
+    expect(result.message).to.equal(output.message)
+  });  
+
   it("should find sale by id with success", async function () {
     const output = saleMock.insertResponseWithSuccess
     sinon.stub(saleProductModel, 'findById').resolves(output)
