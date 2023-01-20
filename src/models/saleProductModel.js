@@ -5,7 +5,7 @@ const { createColumnsAndPlaceholders } = require('../utils/createColumnsAndPlace
 
 const findById = async (id) => {
   const query = 'SELECT * FROM sales_products WHERE sale_id = ?';
-  const [sale] = await connection.execute(query, [id]);
+  const [[sale]] = await connection.execute(query, [id]);
   return camelize(sale);
 };
 
