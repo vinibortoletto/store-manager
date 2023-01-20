@@ -9,9 +9,16 @@ const insert = async (req, res) => {
 };
 
 const getAll = async (_req, res) => {
-  const { type, message } = await saleProductService.getAll();
+  const { message } = await saleProductService.getAll();
+  res.status(httpStatus.OK).json(message);
+};
+
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const { type, message } = await saleProductService.findById(id);
+
   if (type) return res.status(errorTypes[type]).json({ message });
   res.status(httpStatus.OK).json(message);
 };
 
-module.exports = { insert, getAll };
+module.exports = { insert, getAll, findById };
