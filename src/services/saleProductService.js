@@ -1,4 +1,5 @@
 const { saleProductModel } = require('../models');
+const { validateId } = require('./validations/validateId');
 const { validateNewSale } = require('./validations/validateNewSale');
 const { validateProductList } = require('./validations/validateProductList');
 
@@ -20,7 +21,12 @@ const insert = async (productList) => {
 };
 
 const findById = async (id) => {
+  const error = validateId(id);
+  if (error) return error;
+  
   const sale = await saleProductModel.findById(id);
+
+  if (!sale) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
   return { type: null, message: sale };
 };
 
