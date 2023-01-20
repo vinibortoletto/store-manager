@@ -19,30 +19,30 @@ describe("Unit tests for saleProductController", function () {
     const res = {};
     const req = {};
 
-    const output = saleMock.insertResponseWithSuccess
+    const output = saleMock.insertResponseWithSuccess;
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
 
     sinon.stub(saleProductService, "insert").resolves({
       type: null,
-      message: output
+      message: output,
     });
 
     await saleProductController.insert(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.CREATED);
     expect(res.json).to.have.been.calledWith(output);
-  })
+  });
 
   it("should fail to insert new sale without productId", async function () {
     const res = {};
     const req = {};
 
     const output = {
-      type: 'VALUE_REQUIRED',
-      message: '"productId" is required'
-    }
+      type: "VALUE_REQUIRED",
+      message: '"productId" is required',
+    };
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
@@ -53,16 +53,16 @@ describe("Unit tests for saleProductController", function () {
 
     expect(res.status).to.have.been.calledWith(httpStatus.BAD_REQUEST);
     expect(res.json).to.have.been.calledWith({ message: output.message });
-  })
+  });
 
-  it('should get all sales with success', async function () {
+  it("should get all sales with success", async function () {
     const res = {};
     const req = {};
 
     const output = {
       type: null,
-      message: saleMock.getAllResponseWithSuccess
-    }
+      message: saleMock.getAllResponseWithSuccess,
+    };
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
@@ -73,5 +73,27 @@ describe("Unit tests for saleProductController", function () {
 
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
     expect(res.json).to.have.been.calledWith(output.message);
-  })
-})
+  });
+
+  it("should fail to find sale by id if it does not exists", async function () {
+    const res = {};
+    const req = {
+      params: {id: 9999}
+    };
+
+    const output = {
+      type: 'SALE_NOT_FOUND',
+      message: 'Sale not found',
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(saleProductService, "findById").resolves(output);
+
+    await saleProductController.findById(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.NOT_FOUND);
+    expect(res.json).to.have.been.calledWith({message: output.message});
+  });
+});
