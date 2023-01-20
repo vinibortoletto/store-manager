@@ -1,6 +1,10 @@
 const { saleProductModel } = require('../models');
+const { validateNewSale } = require('./validations/validateNewSale');
 
 const insert = async (productList) => {
+  const error = validateNewSale(productList);
+  if (error) return error;
+  
   const newSaleId = await saleProductModel.insert(productList);
   const newSaleProductList = await saleProductModel.findById(newSaleId);
 

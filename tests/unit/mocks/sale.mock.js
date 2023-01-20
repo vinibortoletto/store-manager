@@ -11,7 +11,10 @@ const insertBodyWithSuccess = [
   { productId: 2, quantity: 5 },
 ];
 
+const insertBodyWithoutProductId = [{ quantity: 1 }];
+
 module.exports = {
   insertBodyWithSuccess,
   insertResponseWithSuccess,
+  insertBodyWithoutProductId,
 };
