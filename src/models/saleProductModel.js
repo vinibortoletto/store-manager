@@ -31,15 +31,15 @@ const getAll = async () => {
       sp.sale_id,
       s.date,
       sp.product_id,
-      sp.quantity,
+      sp.quantity
     FROM sales_products AS sp
     INNER JOIN sales as s
     ON sp.sale_id = s.id
-    ORDER BY sp.sale_id, sp.product_id
+    ORDER BY sp.sale_id, sp.product_id;
   `;
 
   const [saleList] = await connection.execute(query);
-  return saleList;
+  return camelize(saleList);
 };
 
 module.exports = { insert, findById, getAll };
