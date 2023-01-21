@@ -74,64 +74,102 @@ describe("Unit tests for productController", function () {
     const res = {};
     const req = {
       body: {
-        name: productMock.insertWithSuccess.name
-      }
+        name: productMock.insertWithSuccess.name,
+      },
     };
 
     const output = {
       type: null,
-      message: productMock.insertWithSuccess
-    }
+      message: productMock.insertWithSuccess,
+    };
 
-    res.status = sinon.stub().returns(res)
-    res.json = sinon.stub().returns()
-    sinon.stub(productService, 'insert').resolves(output)
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productService, "insert").resolves(output);
 
-    await productController.insert(req, res)
+    await productController.insert(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.CREATED);
     expect(res.json).to.have.been.calledWith(output.message);
   });
 
-  it('should fail to insert new product without a name', async function() {
-    const res = {}
+  it("should fail to insert new product without a name", async function () {
+    const res = {};
     const req = {
-      body: {}
-    }
+      body: {},
+    };
 
     const output = {
-      type: 'VALUE_REQUIRED',
-      message: '"name" is required'
-    }
+      type: "VALUE_REQUIRED",
+      message: '"name" is required',
+    };
 
-    res.status = sinon.stub().returns(res)
-    res.json = sinon.stub().returns()
-    sinon.stub(productService, 'insert').resolves(output)
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productService, "insert").resolves(output);
 
-    await productController.insert(req, res)
+    await productController.insert(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.BAD_REQUEST);
-    expect(res.json).to.have.been.calledWith({message: output.message});
+    expect(res.json).to.have.been.calledWith({ message: output.message });
   });
 
-  it('should fail to insert new product with a invalid name', async function() {
-    const res = {}
+  it("should fail to insert new product with a invalid name", async function () {
+    const res = {};
     const req = {
-      body: { name: 'aaaa' }
-    }
+      body: { name: "aaaa" },
+    };
 
     const output = {
-      type: 'INVALID_VALUE',
-      message: '"name" length must be at least 5 characters long'
-    }
+      type: "INVALID_VALUE",
+      message: '"name" length must be at least 5 characters long',
+    };
 
-    res.status = sinon.stub().returns(res)
-    res.json = sinon.stub().returns()
-    sinon.stub(productService, 'insert').resolves(output)
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productService, "insert").resolves(output);
 
-    await productController.insert(req, res)
+    await productController.insert(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.UNPROCESSABLE_ENTITY);
-    expect(res.json).to.have.been.calledWith({message: output.message});
+    expect(res.json).to.have.been.calledWith({ message: output.message });
+  });
+
+  it("should fail to update a product without a name", async function () {
+    const res = {};
+    const req = { body: {} };
+
+    const output = {
+      type: "VALUE_REQUIRED",
+      message: '"name" is required',
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productService, "update").resolves(output);
+    
+    await productController.update(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.BAD_REQUEST);
+    expect(res.json).to.have.been.calledWith({ message: output.message });
+  });
+
+  it("should fail to update a product with invalid name", async function () {
+    const res = {};
+    const req = { body: { name: '' } };
+
+    const output = {
+      type: "INVALID_VALUE",
+      message: '"name" length must be at least 5 characters long',
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productService, "update").resolves(output);
+    
+    await productController.update(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.UNPROCESSABLE_ENTITY);
+    expect(res.json).to.have.been.calledWith({ message: output.message });
   });
 });
