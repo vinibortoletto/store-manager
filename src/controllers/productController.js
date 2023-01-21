@@ -1,6 +1,6 @@
 const { productService } = require('../services');
 const { errorTypes } = require('../utils/errorTypes');
-const { OK, CREATED, NO_CONTENT } = require('../utils/httpStatus');
+const { OK, CREATED, NO_CONTENT, NOT_FOUND } = require('../utils/httpStatus');
 
 const getAll = async (req, res) => {
   const productList = await productService.getAll();
@@ -34,7 +34,8 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   const { id } = req.params;
-  await productService.remove(id);
+  const { type, message } = await productService.remove(id);
+  if (type) return res.status(NOT_FOUND).json({ message });
   res.status(NO_CONTENT).send();
 };
 
