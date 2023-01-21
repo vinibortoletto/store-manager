@@ -224,4 +224,26 @@ describe("Unit tests for productController", function () {
     expect(res.status).to.have.been.calledWith(httpStatus.NO_CONTENT);
     expect(res.send).to.have.been.calledWith();
   });
+
+  it("should fail to remove product that does not exist", async function () {
+    const res = {};
+    const req = {
+      params: {id: 999 },
+    };
+
+    const output = {
+      type: 'PRODUCT_NOT_FOUND',
+      message: 'Product not found',
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productService, "remove").resolves(output);
+
+    await productController.remove(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.NOT_FOUND);
+    expect(res.json).to.have.been.calledWith({ message: output.message });
+  });
 });
