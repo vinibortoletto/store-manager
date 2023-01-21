@@ -63,7 +63,7 @@ describe("Unit tests for productService", function () {
 
   it("should fail to insert new product without a name", async function () {
     const output = {
-      type: "INVALID_VALUE",
+      type: "VALUE_REQUIRED",
       message: '"name" is required',
     }
 
@@ -80,6 +80,18 @@ describe("Unit tests for productService", function () {
     }
 
     const result = await productService.insert({name: 'aaaa'});
+
+    expect(result.type).to.equal(output.type);
+    expect(result.message).to.equal(output.message);
+  });
+
+  it('should fail to update a product without a name', async function() {
+    const output = {
+      type: "VALUE_REQUIRED",
+      message: '"name" is required',
+    };
+
+    const result = await productService.update({});
 
     expect(result.type).to.equal(output.type);
     expect(result.message).to.equal(output.message);
