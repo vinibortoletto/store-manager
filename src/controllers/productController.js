@@ -25,10 +25,11 @@ const insert = async (req, res) => {
 
 const update = async (req, res) => {
   const newProduct = req.body;
-  const { type, message } = await productService.update(newProduct);
-  console.log('🚀 ~ file: productController.js:29 ~ update ~ type', type);
+  const { id } = req.params;
+  const { type, message } = await productService.update(newProduct, id);
 
   if (type) return res.status(errorTypes[type]).json({ message });
+  res.status(OK).json({ message });
 };
 
 module.exports = { getAll, findById, insert, update };
