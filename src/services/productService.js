@@ -27,4 +27,9 @@ const insert = async (newProduct) => {
   return { type: null, message: insertedProduct };
 };
 
-module.exports = { getAll, findById, insert };
+const update = async (newProduct) => {
+  const error = validateNewProduct(newProduct);
+  if (error) return error;
+};
+
+module.exports = { getAll, findById, insert, update };
