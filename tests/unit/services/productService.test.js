@@ -115,6 +115,9 @@ describe("Unit tests for productService", function () {
       message: productMock.updateResponseWithSuccess,
     };
 
+    sinon.stub(productModel, 'findById').resolves(output.message)
+    sinon.stub(productModel, 'update').resolves(true)
+
     const result = await productService.update(
       productMock.updateBodyWithSuccess,
       productMock.updateResponseWithSuccess.id
