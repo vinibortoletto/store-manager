@@ -137,7 +137,10 @@ describe("Unit tests for productController", function () {
 
   it("should fail to update a product without a name", async function () {
     const res = {};
-    const req = { body: {} };
+    const req = {
+      params: { id: 1 },
+      body: {}
+    };
 
     const output = {
       type: "VALUE_REQUIRED",
@@ -147,7 +150,7 @@ describe("Unit tests for productController", function () {
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
     sinon.stub(productService, "update").resolves(output);
-    
+
     await productController.update(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.BAD_REQUEST);
@@ -156,7 +159,10 @@ describe("Unit tests for productController", function () {
 
   it("should fail to update a product with invalid name", async function () {
     const res = {};
-    const req = { body: { name: '' } };
+    const req = {
+      params: {id: 1},
+      body: { name: "" }
+    };
 
     const output = {
       type: "INVALID_VALUE",
@@ -166,10 +172,34 @@ describe("Unit tests for productController", function () {
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
     sinon.stub(productService, "update").resolves(output);
-    
+
     await productController.update(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.UNPROCESSABLE_ENTITY);
+    expect(res.json).to.have.been.calledWith({ message: output.message });
+  });
+
+  it("should update product with success", async function () {
+    const res = {};
+    const req = {
+      params: {id: productMock.updateResponseWithSuccess.id },
+      body: {
+        name: productMock.updateResponseWithSuccess.name,
+      },
+    };
+
+    const output = {
+      type: null,
+      message: productMock.updateResponseWithSuccess,
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productService, "update").resolves(output);
+
+    await productController.update(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.OK);
     expect(res.json).to.have.been.calledWith({ message: output.message });
   });
 });
