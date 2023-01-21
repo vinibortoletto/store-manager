@@ -25,4 +25,16 @@ const insert = async (newProduct) => {
   return insertId;
 };
 
-module.exports = { getAll, findById, insert };
+const update = async ({ name }, id) => {
+  const query = `
+    UPDATE products
+    SET name = ?
+    WHERE id = ?;
+  `;
+
+  const [{ affectedRows }] = await connection.execute(query, [name, id]);
+
+  return affectedRows;
+};
+
+module.exports = { getAll, findById, insert, update };
