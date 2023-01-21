@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-const { saleProductModel } = require("../../../src/models");
+const { saleProductModel, productModel } = require("../../../src/models");
 const { saleProductService } = require("../../../src/services");
 const { saleMock } = require("../mocks");
 
@@ -12,9 +12,9 @@ describe("Unit tests for saleProductService", function () {
 
   it("should insert new sale with success", async function () {
     const output = saleMock.insertResponseWithSuccess
+    sinon.stub(productModel, 'findById').resolves(true)
     sinon.stub(saleProductModel, 'insert').resolves(output.id)
-    sinon.stub(saleProductModel, 'findById').resolves(saleMock.findByIdResponseWithSuccess)
-
+      
     const result = await saleProductService.insert(saleMock.insertBodyWithSuccess)
 
     expect(result.type).to.equal(null)
