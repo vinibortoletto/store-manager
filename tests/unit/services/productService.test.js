@@ -123,4 +123,16 @@ describe("Unit tests for productService", function () {
     expect(result.type).to.equal(output.type);
     expect(result.message).to.deep.equal(output.message);
   });
+
+  it("should remove product with success", async function () {
+    const output = {
+      type: null,
+      message: '',
+    };
+
+    const result = await productService.remove(1);
+
+    expect(result.type).to.equal(output.type);
+    expect(result.message).to.deep.equal(output.message);
+  });
 });
