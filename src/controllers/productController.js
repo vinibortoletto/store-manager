@@ -29,7 +29,7 @@ const update = async (req, res) => {
   const { type, message } = await productService.update(newProduct, id);
 
   if (type) return res.status(errorTypes[type]).json({ message });
-  res.status(OK).json({ message });
+  res.status(OK).json(message);
 };
 
 module.exports = { getAll, findById, insert, update };

@@ -200,6 +200,6 @@ describe("Unit tests for productController", function () {
     await productController.update(req, res);
 
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
-    expect(res.json).to.have.been.calledWith({ message: output.message });
+    expect(res.json).to.have.been.calledWith(output.message );
   });
 });
