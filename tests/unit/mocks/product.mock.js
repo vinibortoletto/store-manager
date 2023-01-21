@@ -9,4 +9,18 @@ const insertWithSuccess = {
   name: "Novo Produto",
 };
 
-module.exports = { getAllWithSuccess, insertWithSuccess };
+const updateResponseWithSuccess = {
+  id: 1,
+  name: "Martelo do Batman",
+};
+
+const updateBodyWithSuccess = {
+  name: "Martelo do Batman",
+};
+
+module.exports = {
+  getAllWithSuccess,
+  insertWithSuccess,
+  updateResponseWithSuccess,
+  updateBodyWithSuccess,
+};
