@@ -54,7 +54,7 @@ describe("Unit tests for productService", function () {
       .resolves(productMock.insertWithSuccess);
 
     const result = await productService.insert({
-      name: productMock.insertWithSuccess.name
+      name: productMock.insertWithSuccess.name,
     });
 
     expect(result.type).to.equal(null);
@@ -65,7 +65,7 @@ describe("Unit tests for productService", function () {
     const output = {
       type: "VALUE_REQUIRED",
       message: '"name" is required',
-    }
+    };
 
     const result = await productService.insert({});
 
@@ -76,16 +76,16 @@ describe("Unit tests for productService", function () {
   it("should fail to insert new product with invalid name", async function () {
     const output = {
       type: "INVALID_VALUE",
-      message: '"name" length must be at least 5 characters long'
-    }
+      message: '"name" length must be at least 5 characters long',
+    };
 
-    const result = await productService.insert({name: 'aaaa'});
+    const result = await productService.insert({ name: "aaaa" });
 
     expect(result.type).to.equal(output.type);
     expect(result.message).to.equal(output.message);
   });
 
-  it('should fail to update a product without a name', async function() {
+  it("should fail to update a product without a name", async function () {
     const output = {
       type: "VALUE_REQUIRED",
       message: '"name" is required',
@@ -95,5 +95,32 @@ describe("Unit tests for productService", function () {
 
     expect(result.type).to.equal(output.type);
     expect(result.message).to.equal(output.message);
+  });
+
+  it("should fail to update a product that does not exist", async function () {
+    const output = { type: "PRODUCT_NOT_FOUND", message: "Product not found" };
+
+    const result = await productService.update(
+      { name: productMock.updateBodyWithSuccess.name },
+      999
+    );
+
+    expect(result.type).to.equal(output.type);
+    expect(result.message).to.equal(output.message);
+  });
+
+  it("should update product with success", async function () {
+    const output = {
+      type: null,
+      message: productMock.updateResponseWithSuccess,
+    };
+
+    const result = await productService.update(
+      productMock.updateBodyWithSuccess,
+      productMock.updateResponseWithSuccess.id
+    );
+
+    expect(result.type).to.equal(output.type);
+    expect(result.message).to.deep.equal(output.message);
   });
 });
