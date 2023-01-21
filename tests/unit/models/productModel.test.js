@@ -36,4 +36,11 @@ describe("Unit tests for productModel", function () {
     const result = await productModel.update(productMock.updateBodyWithSuccess, output.id)
     expect(result).to.equal(output.id)
   });
+
+  it('should remove product with success', async function() {
+    const output = productMock.updateResponseWithSuccess
+    sinon.stub(connection, 'execute').resolves([{affectedRows: 1}])
+    const result = await productModel.remove(1)
+    expect(result).to.equal(1)
+  });
 });
