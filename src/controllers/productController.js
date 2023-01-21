@@ -23,4 +23,12 @@ const insert = async (req, res) => {
   res.status(CREATED).json(message);
 };
 
-module.exports = { getAll, findById, insert };
+const update = async (req, res) => {
+  const newProduct = req.body;
+  const { type, message } = await productService.update(newProduct);
+  console.log('🚀 ~ file: productController.js:29 ~ update ~ type', type);
+
+  if (type) return res.status(errorTypes[type]).json({ message });
+};
+
+module.exports = { getAll, findById, insert, update };
