@@ -41,6 +41,9 @@ const update = async (newProduct, id) => {
 };
 
 const remove = async (id) => {
+  const hasProduct = await productModel.findById(id);
+  if (!hasProduct) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' }; 
+
   await productModel.remove(id);
   return { type: null, message: '' };
 };
