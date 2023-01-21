@@ -202,4 +202,26 @@ describe("Unit tests for productController", function () {
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
     expect(res.json).to.have.been.calledWith(output.message );
   });
+
+  it("should remove product with success", async function () {
+    const res = {};
+    const req = {
+      params: {id: 1 },
+    };
+
+    const output = {
+      type: null,
+      message: '',
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.send = sinon.stub().returns();
+
+    sinon.stub(productService, "remove").resolves(output);
+
+    await productController.remove(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.NO_CONTENT);
+    expect(res.send).to.have.been.calledWith();
+  });
 });
