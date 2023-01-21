@@ -133,7 +133,21 @@ describe("Unit tests for productService", function () {
       message: '',
     };
 
+    sinon.stub(productModel, 'findById').resolves(true)
+
     const result = await productService.remove(1);
+
+    expect(result.type).to.equal(output.type);
+    expect(result.message).to.deep.equal(output.message);
+  });
+
+  it("should fail to remove product that does not exist", async function () {
+    const output = {
+      type: 'PRODUCT_NOT_FOUND',
+      message: 'Product not found',
+    };
+
+    const result = await productService.remove(999);
 
     expect(result.type).to.equal(output.type);
     expect(result.message).to.deep.equal(output.message);
