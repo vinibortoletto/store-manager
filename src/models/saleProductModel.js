@@ -58,9 +58,23 @@ const remove = async (id) => {
   return affectedRows;
 };
 
+const update = async ({ quantity, productId }, saleId) => {
+  const query = `
+    UPDATE sales_products
+    SET quantity = ?
+    WHERE sale_id = ?
+    AND product_id = ?
+  `;
+
+  const [{ affectedRows }] = await connection.execute(query, [quantity, productId, saleId]);
+
+  return affectedRows;
+};
+
 module.exports = {
   insert,
   findById,
   getAll,
   remove,
+  update,
 };
