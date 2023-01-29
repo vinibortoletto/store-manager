@@ -116,4 +116,26 @@ describe("Unit tests for saleProductService", function () {
     expect(result.type).to.equal(null)
     expect(result.message).to.equal(output)
   })
+
+  it('should remove sale with success', async function () {
+    sinon.stub(saleProductModel, 'findById').resolves(true)
+    sinon.stub(saleProductModel, 'remove').resolves(true)
+
+    const result = await saleProductService.remove(1)
+    
+    expect(result.type).to.equal(null)
+    expect(result.message).to.equal('')
+  })
+
+  it('should fail to remove sale that does not exists', async function () {
+    const output = { type: 'SALE_NOT_FOUND', message: 'Sale not found' }
+    
+    sinon.stub(saleProductService, 'findById').resolves(output)
+    sinon.stub(saleProductModel, 'remove').resolves(true)
+
+    const result = await saleProductService.remove(1)
+    
+    expect(result.type).to.equal(output.type)
+    expect(result.message).to.equal(output.message)
+  })
 });
