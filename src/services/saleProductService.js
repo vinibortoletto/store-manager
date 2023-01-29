@@ -35,4 +35,17 @@ const getAll = async () => {
   return { type: null, message: saleList };
 };
 
-module.exports = { insert, findById, getAll };
+const remove = async (id) => {
+  const error = await findById(id);
+  if (error.type) return error;
+
+  await saleProductModel.remove(id);
+  return { type: null, message: '' };
+};
+
+module.exports = {
+  insert,
+  findById,
+  getAll,
+  remove,
+};
