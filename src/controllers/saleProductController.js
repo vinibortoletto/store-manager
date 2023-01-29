@@ -21,4 +21,21 @@ const findById = async (req, res) => {
   res.status(httpStatus.OK).json(message);
 };
 
-module.exports = { insert, getAll, findById };
+const remove = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const { type, message } = await saleProductService.remove(id);
+    if (type) return res.status(errorTypes[type]).json({ message });
+    res.status(httpStatus.NO_CONTENT).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  insert,
+  getAll,
+  findById,
+  remove,
+};
