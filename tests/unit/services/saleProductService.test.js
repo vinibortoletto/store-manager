@@ -138,4 +138,17 @@ describe("Unit tests for saleProductService", function () {
     expect(result.type).to.equal(output.type)
     expect(result.message).to.equal(output.message)
   })
+
+  it('should update sale with success', async function () {
+    const output = {
+      type: null,
+      message: saleMock.updateSaleResponseWithSuccess
+    }
+    
+    sinon.stub(saleProductModel, 'update').resolves(true)
+    const result = await saleProductService.update(saleMock.updateSaleBodyWithSuccess, 1)
+    
+    expect(result.type).to.equal(output.type)
+    expect(result.message).to.deep.equal(output.message)
+  })
 });
