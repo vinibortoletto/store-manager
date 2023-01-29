@@ -38,4 +38,10 @@ describe("Unit tests for saleProductModel", function () {
     const result = await saleProductModel.remove(1)
     expect(result).to.equal(1)
   })
+
+  it('should update sale with success', async function () {
+    sinon.stub(connection, 'execute').resolves([{affectedRows: 1}])
+    const result = await saleProductModel.update(saleMock.updateSaleBodyWithSuccess)
+    expect(result).to.equal(1)
+  })
 });
