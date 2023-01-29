@@ -118,4 +118,41 @@ describe("Unit tests for saleProductController", function () {
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
     expect(res.json).to.have.been.calledWith(output.message);
   });
+
+
+  it("should remove sale with success", async function () {
+    const res = {};
+    const req = {
+      params: { id: 1}
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.end = sinon.stub().returns();
+
+    sinon.stub(saleProductService, "remove").resolves({ type: null, message: '' });
+
+    await saleProductController.remove(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.NO_CONTENT);
+    expect(res.end).to.have.been.calledWith();
+  });
+
+  it("should fail to remove that does not exists", async function () {
+    const res = {};
+    const req = {
+      params: { id: 999}
+    };
+
+    const output = { type: 'SALE_NOT_FOUND', message: 'Sale not found' }
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(saleProductService, "remove").resolves(output);
+
+    await saleProductController.remove(req, res);
+
+    expect(res.status).to.have.been.calledWith(httpStatus.NOT_FOUND);
+    expect(res.json).to.have.been.calledWith({message: output.message});
+  });
 });
