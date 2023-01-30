@@ -131,9 +131,8 @@ describe("Unit tests for saleProductService", function () {
     const output = { type: 'SALE_NOT_FOUND', message: 'Sale not found' }
     
     sinon.stub(saleProductService, 'findById').resolves(output)
-    sinon.stub(saleProductModel, 'remove').resolves(true)
 
-    const result = await saleProductService.remove(1)
+    const result = await saleProductService.remove(999)
     
     expect(result.type).to.equal(output.type)
     expect(result.message).to.equal(output.message)
