@@ -30,9 +30,19 @@ const remove = async (req, res) => {
   return res.status(httpStatus.NO_CONTENT).end();
 };
 
+const update = async (req, res) => {
+  const updatedSale = req.body;
+
+  const { type, message } = await saleProductService.update(updatedSale);
+  if (type) return res.status(errorTypes[type]).json({ message });
+
+  return res.status(httpStatus.OK).json(message);
+};
+
 module.exports = {
   insert,
   getAll,
   findById,
   remove,
+  update,
 };
