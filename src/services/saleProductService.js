@@ -44,6 +44,9 @@ const remove = async (id) => {
 };
 
 const update = async (updatedSale, saleId) => {
+  const { type, message } = await findById(saleId);
+  if (type) return { type, message };
+  
   await saleProductModel.update(updatedSale, saleId);
 
   const result = {
