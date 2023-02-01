@@ -58,7 +58,7 @@ const remove = async (id) => {
   return affectedRows;
 };
 
-const update = async ({ quantity, productId }, saleId) => {
+const update = async (updatedSale, saleId) => {
   const query = `
     UPDATE sales_products
     SET quantity = ?
@@ -66,9 +66,11 @@ const update = async ({ quantity, productId }, saleId) => {
     AND product_id = ?
   `;
 
-  const [{ affectedRows }] = await connection.execute(query, [quantity, productId, saleId]);
+  const promises = updatedSale.map(({ quantity, productId }) => (
+    connection.execute(query, [quantity, productId, saleId])
+  ));
 
-  return affectedRows;
+  await Promise.all(promises);
 };
 
 module.exports = {
