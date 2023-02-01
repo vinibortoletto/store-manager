@@ -150,4 +150,17 @@ describe("Unit tests for saleProductService", function () {
     expect(result.type).to.equal(output.type)
     expect(result.message).to.deep.equal(output.message)
   })
+
+  it('should fail to update sale that does not exists', async function () {
+    const output = {
+      type: 'SALE_NOT_FOUND',
+      message: 'Sale not found'
+    }
+    
+    sinon.stub(saleProductModel, 'update').resolves()
+    const result = await saleProductService.update(saleMock.updateSaleBodyWithSuccess, 999)
+
+    expect(result.type).to.equal(output.type)
+    expect(result.message).to.deep.equal(output.message)
+  })
 });
