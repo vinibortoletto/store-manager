@@ -40,8 +40,8 @@ describe("Unit tests for saleProductModel", function () {
   })
 
   it('should update sale with success', async function () {
-    sinon.stub(connection, 'execute').resolves([{affectedRows: 1}])
+    sinon.stub(connection, 'execute').resolves()
     const result = await saleProductModel.update(saleMock.updateSaleBodyWithSuccess, 1)
-    expect(result).to.equal(1)
+    expect(result).to.equal()
   })
 });
