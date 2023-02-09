@@ -51,8 +51,9 @@ const remove = async (id) => {
 };
 
 const search = async (searchTerm) => {
-  const query = 'SELECT * FROM products WHERE name= ?';
-  const products = await connection.execute(query, [searchTerm]);
+  const formattedSearchTerm = `%${searchTerm}%`;
+  const query = 'SELECT * FROM products WHERE name LIKE ?';
+  const [products] = await connection.execute(query, [formattedSearchTerm]);
   return products;
 };
 
