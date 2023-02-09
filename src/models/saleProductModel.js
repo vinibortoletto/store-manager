@@ -1,7 +1,9 @@
 const camelize = require('camelize');
 const saleModel = require('./saleModel');
 const connection = require('../../connection');
-const { createColumnsAndPlaceholders } = require('../utils/createColumnsAndPlaceholders');
+const {
+  createColumnsAndPlaceholders,
+} = require('../utils/createColumnsAndPlaceholders');
 
 const findById = async (id) => {
   const query = `
@@ -14,7 +16,7 @@ const findById = async (id) => {
     ON s.id = sp.sale_id
     WHERE s.id = ?;
   `;
-  
+
   const [sale] = await connection.execute(query, [id]);
   return camelize(sale);
 };
@@ -22,14 +24,15 @@ const findById = async (id) => {
 const insert = async (productList) => {
   const newSaleId = await saleModel.insert();
 
-  const { columns, placeholders } = createColumnsAndPlaceholders(productList[0]);
-  
+  const { columns, placeholders } = createColumnsAndPlaceholders(
+    productList[0],
+  );
+
   const query = `INSERT INTO sales_products (sale_id, ${columns}) VALUES(?, ${placeholders})`;
 
-  const promises = productList.map(async (product) => (
-    connection.execute(query, [newSaleId, ...Object.values(product)])
-  ));
-  
+  const promises = productList.map(async (product) =>
+    connection.execute(query, [newSaleId, ...Object.values(product)]));
+
   await Promise.all(promises);
 
   return newSaleId;
@@ -66,9 +69,8 @@ const update = async (updatedSale, saleId) => {
     AND product_id = ?
   `;
 
-  const promises = updatedSale.map(({ quantity, productId }) => (
-    connection.execute(query, [quantity, productId, saleId])
-  ));
+  const promises = updatedSale.map(({ quantity, productId }) =>
+    connection.execute(query, [quantity, saleId, productId]));
 
   await Promise.all(promises);
 };
