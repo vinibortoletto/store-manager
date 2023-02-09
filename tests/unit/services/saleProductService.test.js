@@ -176,11 +176,34 @@ describe("Unit tests for saleProductService", function () {
       type: "SALE_NOT_FOUND",
       message: "Sale not found",
     };
-
+    
+    sinon
+      .stub(saleProductService, "findById")
+      .resolves(false);
+      
     sinon.stub(saleProductModel, "update").resolves();
+
     const result = await saleProductService.update(
       saleMock.updateSaleBodyWithSuccess,
       999
+    );
+
+    expect(result.type).to.equal(output.type);
+    expect(result.message).to.deep.equal(output.message);
+  });
+
+   it("should fail to update sale with product that does not exists", async function () {
+    const output = { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' }
+    
+    sinon
+      .stub(saleProductService, "findById")
+      .resolves(false);
+      
+    sinon.stub(productService, "findById").resolves(output);
+    
+    const result = await saleProductService.update(
+      saleMock.updateSaleBodyWithWrongProductId,
+      1
     );
 
     expect(result.type).to.equal(output.type);

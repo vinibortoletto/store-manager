@@ -58,6 +58,17 @@ const updateSaleBodyWithSuccess = [
   },
 ];
 
+const updateSaleBodyWithWrongProductId = [
+  {
+    productId: 999,
+    quantity: 10,
+  },
+  {
+    productId: 999,
+    quantity: 50,
+  },
+];
+
 const updateSaleResponseWithSuccess = {
   saleId: 1,
   itemsUpdated: [
@@ -82,5 +93,6 @@ module.exports = {
   insertBodyWithWrongProductId,
   getAllResponseWithSuccess,
   updateSaleBodyWithSuccess,
-  updateSaleResponseWithSuccess
+  updateSaleResponseWithSuccess,
+  updateSaleBodyWithWrongProductId
 };

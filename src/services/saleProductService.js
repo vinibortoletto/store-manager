@@ -49,12 +49,13 @@ const remove = async (id) => {
 
 const update = async (updatedSale, saleId) => {
   const { type, message } = await findById(saleId);
+  
   if (type) return { type, message };
-
+  
   const productError = await Promise.all(
     updatedSale.map(({ productId }) => productService.findById(productId)),
   ).then((products) => products.find((error) => error.type));
-    
+
   if (productError) return productError;
 
   await saleProductModel.update(updatedSale, saleId);
