@@ -49,7 +49,7 @@ describe("Unit tests for productModel", function () {
     expect(result).to.equal(1);
   });
 
-  it.only("should search product with success", async function () {
+  it("should search product with success", async function () {
     const output = productMock.searchResponseWithSuccess;
     const searchTerm = "Martelo";
     sinon.stub(connection, "execute").resolves(output);

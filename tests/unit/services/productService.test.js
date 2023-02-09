@@ -152,4 +152,18 @@ describe("Unit tests for productService", function () {
     expect(result.type).to.equal(output.type);
     expect(result.message).to.deep.equal(output.message);
   });
+
+  it("should search product wit success", async function () {
+    const output = {
+      type: null,
+      message: productMock.searchResponseWithSuccess,
+    };
+
+    const searchTerm = 'Martelo'
+
+    const result = await productService.search(searchTerm)
+
+    expect(result.type).to.equal(output.type);
+    expect(result.message).to.deep.equal(output.message);
+  });
 });
