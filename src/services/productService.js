@@ -48,10 +48,16 @@ const remove = async (id) => {
   return { type: null, message: '' };
 };
 
+const search = async (searchTerm) => {
+  const products = await productModel.search(searchTerm);
+  return { type: null, message: products };
+};
+
 module.exports = {
   getAll,
   findById,
   insert,
   update,
   remove,
+  search,
 };
