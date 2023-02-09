@@ -18,9 +18,12 @@ const updateBodyWithSuccess = {
   name: "Martelo do Batman",
 };
 
+const searchResponseWithSuccess = [{id:1,name:'Martelo de Thor'}];
+
 module.exports = {
   getAllWithSuccess,
   insertWithSuccess,
   updateResponseWithSuccess,
   updateBodyWithSuccess,
+  searchResponseWithSuccess
 };
