@@ -6,7 +6,7 @@ const validateId = (id) => {
   if (error) {
     return {
       type: 'INVALID_VALUE', 
-      message: '"id" must be a number greater than 1',
+      message: '"id" must be a number greater than 0',
     };
   }
 };

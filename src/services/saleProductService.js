@@ -1,4 +1,6 @@
 const { saleProductModel } = require('../models');
+const productService = require('./productService');
+
 const { validateId } = require('./validations/validateId');
 const { validateNewSale } = require('./validations/validateNewSale');
 const { validateProductList } = require('./validations/validateProductList');
@@ -26,7 +28,9 @@ const findById = async (id) => {
 
   const sale = await saleProductModel.findById(id);
 
-  if (sale.length === 0) { return { type: 'SALE_NOT_FOUND', message: 'Sale not found' }; }
+  if (sale.length === 0) {
+    return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+  }
   return { type: null, message: sale };
 };
 
@@ -46,14 +50,20 @@ const remove = async (id) => {
 const update = async (updatedSale, saleId) => {
   const { type, message } = await findById(saleId);
   if (type) return { type, message };
-  
+
+  const productError = await Promise.all(
+    updatedSale.map(({ productId }) => productService.findById(productId)),
+  ).then((products) => products.find((error) => error.type));
+    
+  if (productError) return productError;
+
   await saleProductModel.update(updatedSale, saleId);
 
   const result = {
     saleId,
     itemsUpdated: updatedSale,
   };
-  
+
   return { type: null, message: result };
 };
 

@@ -31,7 +31,7 @@ describe("Unit tests for productService", function () {
     sinon.stub(productModel, "findById").resolves([[]]);
     const result = await productService.findById(0);
 
-    expect(result.message).to.equal('"id" must be a number greater than 1');
+    expect(result.message).to.equal('"id" must be a number greater than 0');
   });
 
   it("should fail to find product with non existent id", async function () {

@@ -32,8 +32,9 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   const updatedSale = req.body;
+  const { id } = req.params;
 
-  const { type, message } = await saleProductService.update(updatedSale);
+  const { type, message } = await saleProductService.update(updatedSale, id);
   if (type) return res.status(errorTypes[type]).json({ message });
 
   return res.status(httpStatus.OK).json(message);

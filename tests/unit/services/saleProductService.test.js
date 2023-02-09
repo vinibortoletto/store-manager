@@ -86,7 +86,7 @@ describe("Unit tests for saleProductService", function () {
   it("should fail to find sale by id if id is invalid", async function () {
     const output = {
       type: 'INVALID_VALUE',
-      message: '"id" must be a number greater than 1'
+      message: '"id" must be a number greater than 0'
     }
 
     sinon.stub(saleProductModel, 'findById').resolves(undefined)
