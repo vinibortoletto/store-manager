@@ -158,7 +158,9 @@ describe("Unit tests for saleProductController", function () {
 
   it("should update sale with success", async function () {
     const res = {};
-    const req = {};
+    const req = {
+      params: 1
+    };
 
     const output = saleMock.updateSaleResponseWithSuccess
 
@@ -178,7 +180,9 @@ describe("Unit tests for saleProductController", function () {
 
   it("should fail to update sale that does not exists", async function () {
     const res = {};
-    const req = {};
+    const req = {
+      params: 1
+    };
 
     const output = {
       type: 'SALE_NOT_FOUND',
