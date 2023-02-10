@@ -153,7 +153,7 @@ describe("Unit tests for productService", function () {
     expect(result.message).to.deep.equal(output.message);
   });
 
-  it("should search product wit success", async function () {
+  it("should search product with success", async function () {
     const output = {
       type: null,
       message: productMock.searchResponseWithSuccess,

@@ -249,20 +249,21 @@ describe("Unit tests for productController", function () {
 
   it("should search product with success", async function () {
     const res = {};
-    const req = { query: {q: 'Martelo'} };
-
-    const output = productMock.searchResponseWithSuccess;
+    const req = { query: {q: 'Martelo'}};
+    
+    const output = {
+      type: null,
+      message: productMock.searchResponseWithSuccess
+    }
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
-
+    
     sinon.stub(productService, "search").resolves(output);
-
+    
     await productController.search(req, res);
-
+    
     expect(res.status).to.have.been.calledWith(httpStatus.OK);
-    expect(res.json).to.have.been.calledWith(output);
-
+    expect(res.json).to.have.been.calledWith(output.message);
   })
-   
 });
