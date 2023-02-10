@@ -157,6 +157,8 @@ describe("Unit tests for productService", function () {
     const output = productMock.searchResponseWithSuccess
     const searchTerm = 'Martelo'
 
+    sinon.stub(productModel, 'search').resolves(output)
+
     const result = await productService.search(searchTerm)
     expect(result).to.deep.equal(output);
   });
