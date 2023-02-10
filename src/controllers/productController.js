@@ -41,9 +41,8 @@ const remove = async (req, res) => {
 
 const search = async (req, res) => {
   const { q: searchTerm } = req.query;
-  const { type, message } = await productService.search(searchTerm);
-  if (type) return res.status(NOT_FOUND).json({ message });
-  res.status(OK).json(message);
+  const products = await productService.search(searchTerm);
+  res.status(OK).json(products);
 };
 
 module.exports = {

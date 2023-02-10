@@ -50,7 +50,7 @@ const remove = async (id) => {
 
 const search = async (searchTerm) => {
   const products = await productModel.search(searchTerm);
-  return { type: null, message: products };
+  return products;
 };
 
 module.exports = {
