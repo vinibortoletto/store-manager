@@ -39,4 +39,18 @@ const remove = async (req, res) => {
   res.status(NO_CONTENT).send();
 };
 
-module.exports = { getAll, findById, insert, update, remove };
+const search = async (req, res) => {
+  const { q: searchTerm } = req.query;
+  const { type, message } = await productService.search(searchTerm);
+  if (type) return res.status(NOT_FOUND).json({ message });
+  res.status(OK).json(message);
+};
+
+module.exports = {
+  getAll, 
+  findById, 
+  insert, 
+  update, 
+  remove, 
+  search,
+};
