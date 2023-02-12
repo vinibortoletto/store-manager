@@ -24,7 +24,7 @@ Para testar este projeto, precisará das seguintes ferramentas instaladas:
 
 - Git
 - Docker
-- Docker Composer
+- Docker Compose
 
 <br/>
 
@@ -32,8 +32,8 @@ Para testar este projeto, precisará das seguintes ferramentas instaladas:
 # Clone o repositório
 git clone https://github.com/vinibortoletto/store-manager.git
 
-# Inicie o Docker Composer
-docker-composer up -d
+# Inicie o Docker Compose
+docker-compose up -d
 
 # Entre no container
 docker exec -it store-manager bash
